@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opinion Miner — Smart Review Analyzer</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<header>
+  <h1>🔍 Opinion Miner</h1>
+  <p>Smart System for Analyzing Online Product Reviews</p>
+</header>
+
+<main>
+
+  <!-- ── Text Analysis Card ─────────────────────────────────────────────── -->
+  <div class="card">
+    <h2>💬 Analyze Text</h2>
+    <form id="text-form">
+      <textarea id="text-input"
+        placeholder="Enter a review or any opinion text here…"
+        required></textarea>
+      <button class="btn" type="submit">Analyze Sentiment</button>
+    </form>
+
+    <!-- Spinner -->
+    <div class="spinner" id="text-spinner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10" stroke-opacity=".25"/>
+        <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+      </svg>
+      Analyzing…
+    </div>
+
+    <!-- Result -->
+    <div id="text-result"></div>
+  </div>
+
+  <!-- ── URL Analysis Card ──────────────────────────────────────────────── -->
+  <div class="card">
+    <h2>🛒 Analyze Flipkart Product</h2>
+    <form id="url-form">
+      <input type="url" id="url-input"
+        placeholder="https://www.flipkart.com/product-name/p/…"
+        required>
+      <button class="btn" type="submit">Scrape &amp; Analyze</button>
+    </form>
+
+    <!-- Spinner -->
+    <div class="spinner" id="url-spinner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10" stroke-opacity=".25"/>
+        <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+      </svg>
+      Scraping reviews — this may take up to 60 seconds…
+    </div>
+
+    <!-- Result -->
+    <div id="url-result"></div>
+  </div>
+
+</main>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>

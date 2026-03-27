@@ -1,0 +1,12 @@
+flask
+gunicorn
+vaderSentiment
+selenium
+beautifulsoup4
+nltk
+matplotlib
+seaborn
+wordcloud
+scikit-learn
+numpy
+pandas

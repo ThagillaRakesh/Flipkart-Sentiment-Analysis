@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.git/
+.env
+*.log
+chrome_extension/
+make_ppt.py
+train_svm.py
+Screenshot*
+*.mp4
+*.jpeg
+*.odp

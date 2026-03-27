@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opinion Miner</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <div class="header">
+    <span class="logo">🔍</span>
+    <div>
+      <div class="title">Opinion Miner</div>
+      <div class="subtitle">Smart Review Analyzer</div>
+    </div>
+  </div>
+
+  <!-- Manual text input -->
+  <div class="section">
+    <label class="section-label">Analyze Any Text</label>
+    <textarea id="text-input" placeholder="Paste a review or any opinion text here…" rows="3"></textarea>
+    <button id="text-btn" class="btn btn-primary">Analyze Sentiment</button>
+    <div id="text-result" class="result-box" style="display:none"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- URL analysis -->
+  <div class="section">
+    <label class="section-label">Flipkart Product URL</label>
+    <div id="url-display" class="url-pill">—</div>
+    <div id="not-flipkart" class="warn-box" style="display:none">
+      ⚠ Open a Flipkart product page to analyze reviews.
+    </div>
+    <button id="url-btn" class="btn btn-secondary" disabled>Scrape &amp; Analyze</button>
+    <div id="url-spinner" class="spinner" style="display:none">
+      <div class="dot-flashing"></div>
+      <span>Scraping reviews… this may take a few minutes</span>
+    </div>
+    <div id="url-result" class="result-box" style="display:none"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
