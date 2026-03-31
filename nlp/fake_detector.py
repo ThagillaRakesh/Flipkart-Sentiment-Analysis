@@ -20,7 +20,10 @@ from nltk.tokenize import word_tokenize
 
 # ── NLTK data ──────────────────────────────────────────────────────────────
 for _pkg in ['stopwords', 'wordnet', 'omw-1.4', 'punkt', 'punkt_tab']:
-    nltk.download(_pkg, quiet=True)
+    try:
+        nltk.download(_pkg, quiet=True)
+    except Exception:
+        pass
 
 # ── Model paths ────────────────────────────────────────────────────────────
 _HERE      = os.path.dirname(__file__)
@@ -48,6 +51,11 @@ def _load_model():
         return False
 
 _MODEL_READY = _load_model()
+if not _MODEL_READY:
+    import sys
+    print("[fake_detector] WARNING: SVM model files not found. "
+          "Falling back to weak rule-based detector. "
+          "Run train_svm.py to generate model files.", file=sys.stderr)
 
 # ── Preprocessing (identical to training pipeline) ─────────────────────────
 _lemmatizer = WordNetLemmatizer()

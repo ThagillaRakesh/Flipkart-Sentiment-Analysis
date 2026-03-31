@@ -27,7 +27,13 @@ for pkg in ['stopwords', 'wordnet', 'omw-1.4', 'punkt', 'punkt_tab']:
     nltk.download(pkg, quiet=True)
 
 # ── Paths ──────────────────────────────────────────────────────────────────
-DATASET   = "/home/rakesh/Desktop/learn-claude/fake reviews dataset.csv"
+# Dataset path: pass as CLI argument or set DATASET_PATH env variable
+# e.g.  python3 train_svm.py /path/to/fake_reviews.csv
+DATASET = (
+    sys.argv[1]
+    if len(sys.argv) > 1
+    else os.environ.get("DATASET_PATH", "fake reviews dataset.csv")
+)
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "models")
 os.makedirs(MODEL_DIR, exist_ok=True)
 

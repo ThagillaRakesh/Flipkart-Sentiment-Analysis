@@ -11,8 +11,11 @@ Aspects: Quality, Delivery, Value, Performance, Battery, Camera, Display, Design
 import re
 import nltk
 
-nltk.download("punkt",     quiet=True)
-nltk.download("punkt_tab", quiet=True)
+for _pkg in ("punkt", "punkt_tab"):
+    try:
+        nltk.download(_pkg, quiet=True)
+    except Exception:
+        pass
 
 from nltk.tokenize import sent_tokenize
 from nlp.sentiment import analyze

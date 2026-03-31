@@ -44,13 +44,13 @@ def aggregate(genuine_reviews: list, fake_reviews: list, product_rating=None) ->
 
     total_genuine = len(genuine_reviews)
     avg_compound = (
-        statistics.mean(r["scores"]["compound"] for r in analyzed)
+        statistics.mean([r["scores"]["compound"] for r in analyzed])
         if analyzed else 0.0
     )
     avg_scores = {
-        "pos": statistics.mean(r["scores"]["pos"] for r in analyzed) if analyzed else 0.0,
-        "neu": statistics.mean(r["scores"]["neu"] for r in analyzed) if analyzed else 0.0,
-        "neg": statistics.mean(r["scores"]["neg"] for r in analyzed) if analyzed else 0.0,
+        "pos":      statistics.mean([r["scores"]["pos"] for r in analyzed]) if analyzed else 0.0,
+        "neu":      statistics.mean([r["scores"]["neu"] for r in analyzed]) if analyzed else 0.0,
+        "neg":      statistics.mean([r["scores"]["neg"] for r in analyzed]) if analyzed else 0.0,
         "compound": avg_compound,
     }
 

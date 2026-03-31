@@ -50,43 +50,32 @@ SKIP_PHRASES = {
 def _find_chromedriver():
     # Check env var first (set in Docker/production)
     env_cd = os.environ.get("CHROMEDRIVER_BIN")
-    if env_cd and os.path.isfile(env_cd):
+    if env_cd and os.path.isfile(env_cd) and "/snap/" not in env_cd:
         return env_cd
-    # System PATH
-    for name in ("chromedriver", "chromium-driver", "chromium.chromedriver"):
-        p = shutil.which(name)
-        if p:
+    # webdriver-manager first — downloads the exact matching version
+    try:
+        from webdriver_manager.chrome import ChromeDriverManager
+        p = ChromeDriverManager().install()
+        if p and "/snap/" not in p:
             return p
-    # Common Linux paths (Debian/Ubuntu)
+    except Exception:
+        pass
+    # Non-snap system paths
     for p in ("/usr/bin/chromedriver", "/usr/lib/chromium/chromedriver",
               "/usr/lib/chromium-browser/chromedriver"):
-        if os.path.isfile(p):
+        if os.path.isfile(p) and "/snap/" not in p:
             return p
-    # WebDriverManager cache (local dev)
-    import glob
-    home = os.path.expanduser("~")
-    candidates = glob.glob(f"{home}/.wdm/drivers/chromedriver/**/*", recursive=True)
-    for f in sorted(candidates, key=os.path.getsize, reverse=True):
-        if (os.path.isfile(f)
-                and os.access(f, os.X_OK)
-                and "chromedriver" in os.path.basename(f).lower()
-                and "NOTICES" not in f and "LICENSE" not in f
-                and os.path.getsize(f) > 1_000_000):
-            return f
     return None
 
 
 def _find_chrome_binary():
     env_cb = os.environ.get("CHROME_BIN")
-    if env_cb and os.path.isfile(env_cb):
+    if env_cb and os.path.isfile(env_cb) and "/snap/" not in env_cb:
         return env_cb
-    for name in ("chromium", "chromium-browser", "google-chrome", "google-chrome-stable"):
-        p = shutil.which(name)
-        if p:
-            return p
-    for p in ("/usr/bin/chromium", "/usr/bin/chromium-browser",
-              "/usr/bin/google-chrome"):
-        if os.path.isfile(p):
+    # Prefer real Google Chrome over Snap Chromium
+    for p in ("/usr/bin/google-chrome", "/usr/bin/google-chrome-stable",
+              "/usr/bin/chromium-browser", "/usr/bin/chromium"):
+        if os.path.isfile(p) and "/snap/" not in p:
             return p
     return None
 
@@ -98,18 +87,13 @@ def get_driver():
 
     opts = Options()
     opts.add_argument("--headless=new")
-    opts.add_argument("--disable-gpu")
     opts.add_argument("--no-sandbox")
-    opts.add_argument("--window-size=1280,900")
-    opts.add_argument("--disable-blink-features=AutomationControlled")
-    opts.add_argument("--disable-extensions")
-    opts.add_argument("--disable-software-rasterizer")
     opts.add_argument("--disable-dev-shm-usage")
+    opts.add_argument("--disable-gpu")
+    opts.add_argument("--window-size=1280,900")
+    opts.add_argument("--disable-extensions")
     opts.add_argument("--disable-images")
     opts.add_argument("--blink-settings=imagesEnabled=false")
-    opts.add_argument("--js-flags=--max-old-space-size=256")
-    opts.add_experimental_option("excludeSwitches", ["enable-automation"])
-    opts.add_experimental_option("useAutomationExtension", False)
     opts.add_argument(
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "

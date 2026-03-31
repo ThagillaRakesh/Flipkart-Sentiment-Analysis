@@ -4,7 +4,10 @@
   "version": "1.0",
   "description": "Analyze Flipkart product reviews with sentiment analysis and fake review detection.",
   "permissions": ["activeTab", "tabs"],
-  "host_permissions": ["http://localhost:5000/*"],
+  "host_permissions": [
+    "http://localhost:5000/*",
+    "https://opinion-miner.onrender.com/*"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_title": "Opinion Miner",

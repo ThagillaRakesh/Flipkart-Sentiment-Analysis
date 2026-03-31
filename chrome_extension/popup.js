@@ -1,5 +1,7 @@
 "use strict";
 
+// API endpoint — change to your deployed Render URL when in production
+// e.g. "https://opinion-miner.onrender.com"
 const API = "http://localhost:5000";
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

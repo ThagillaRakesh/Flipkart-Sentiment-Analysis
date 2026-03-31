@@ -2,6 +2,7 @@ flask
 gunicorn
 vaderSentiment
 selenium
+webdriver-manager
 beautifulsoup4
 nltk
 matplotlib
